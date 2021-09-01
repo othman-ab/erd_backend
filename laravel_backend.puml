@@ -78,6 +78,25 @@ newpage
     class DepartmentApiController extends Controller implements ControllerApiResource{}
   }
 
+  package FormRequest {
+
+       class StoreUserRequest extends FormRequest {}
+       class UpdateUserRequest extends FormRequest {}
+
+       class StoreCountryRequest extends FormRequest  {}
+       class UpdateCountryRequest extends FormRequest  {}
+
+       class StoreStateRequest extends FormRequest  {}
+       class UpdateStateRequest extends FormRequest  {}
+
+        class StoreCityRequest extends FormRequest  {}
+        class UpdateCityRequest extends FormRequest  {}
+
+       class StoreDepartmentRequest extends FormRequest  {}
+       class UpdateDepartmentRequest extends FormRequest {}
+
+  }
+
 newpage
 
 
