@@ -1,0 +1,65 @@
+@startuml
+!define DARKBLUE # change color here E.g. DARKBLUE, LIGHTBLUE ... GREEN ... RED ...
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml?fbclid=IwAR2eYqwxf9YIa7oSDWJCumJRDLLnBYEORYICuyi295mYOxN-H-SCRLoa30c
+
+ package laravel\laravel {
+
+  class Model{}
+  class Controller{}
+  class Request{}
+  class Response{}
+  class Migration{}
+  class FormRequest{}
+  class Factory{}
+  class Seeder{}
+  class HandleAuthorization{}
+  class Middleware{}
+ interface ControllerResource{
+     + index() : [Model]
+     + show(Model) : Model
+     + create() : View
+     + store(Request) : Response
+     + edit(Model) : View
+     + update(Model,Request) : Response
+     + destroy(Model) : Response
+  }
+ interface ControllerApiResource{
+      + index() : [Model]
+      + show(Model) : Model
+      + create() : View
+      + store(Request) : Response
+      + edit(Model) : View
+      + update(Model,Request) : Response
+      + destroy(Model) : Response
+   }
+
+ }
+newpage
+  package Model {
+    class User extends Model{
+      + fillable
+      + country() : Country
+      + states() : [State]
+      + cities() : [City]
+      + departments : [Department]
+    }
+    class Country extends Model{
+      + fillable
+      + user() : User
+      + states() : State
+    }
+    class State extends Model{
+      + fillable
+      + cities() : [City]
+    }
+    class City extends Model{
+      + fillable
+      + user() : User
+    }
+    class Department extends Model{
+      + fillable
+      + user() : User
+    }
+
+
+@enduml
