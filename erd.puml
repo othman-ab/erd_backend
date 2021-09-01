@@ -1,0 +1,75 @@
+@startuml
+!define DARKBLUE # change color here E.g. DARKBLUE, LIGHTBLUE ... GREEN ... RED ...
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml?fbclid=IwAR2eYqwxf9YIa7oSDWJCumJRDLLnBYEORYICuyi295mYOxN-H-SCRLoa30c
+
+    entity users {
+      + id : int
+      + lastname : varchar<60>
+      + firstname : varchar<60>
+      + middle_name : varchar<60> nullable
+      + address : varchar<120>
+      + zip_code : varchar<10>
+      + birth_date : timestamp
+      + date_hired : timestamp
+      + created_at : timestamp
+      + updated_at : timestamp
+      + deleted_at : timestamp
+      + userable_id : int
+      + userable_type : string
+    }
+    entity countries {
+      + id : int
+      + country_code : varchar<5>
+      + name : varchar<60>
+      + created_at : timestamp
+      + updated_at : timestamp
+      + deleted_at : timestamp
+    }
+
+    entity states {
+     + id : int
+     + country_id : FK
+     + name : varchar<60>
+     + created_at : timestamp
+     + updated_at : timestamp
+     + deleted_at : timestamp
+    }
+
+   entity cities {
+     + id : int
+     + state_id : FK
+     + name : varchar<60>
+     + created_at : timestamp
+     + updated_at : timestamp
+     + deleted_at : timestamp
+   }
+
+   entity departments {
+        + id : int
+        + name : varchar<60>
+        + created_at : timestamp
+        + updated_at : timestamp
+        + deleted_at : timestamp
+      }
+
+
+   'relations
+
+   'relation of user
+
+    cities }o-- users
+    states }o-- users
+    departments }o-- users
+    countries ||-- users
+
+
+    'relation of contry
+     states }o-- countries
+     users ||-- countries
+
+
+     'relation of states
+      cities }o-- states
+
+
+@enduml
