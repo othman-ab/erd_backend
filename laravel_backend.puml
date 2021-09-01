@@ -60,6 +60,25 @@ newpage
       + fillable
       + user() : User
     }
+  package Controller {
+     class UserController extends Controller implements ControllerResource {}
+     class CountryController extends Controller implements ControllerResource{}
+     class StateController extends Controller implements ControllerResource{}
+     class CityController extends Controller implements ControllerResource{}
+     class DepartmentController extends Controller implements ControllerResource{}
+  }
+
+ newpage
+
+  package ControllerApi{
+    class UserApiController extends Controller implements ControllerApiResource{}
+    class CountryApiController extends Controller implements ControllerApiResource{}
+    class StateApiController extends Controller implements ControllerApiResource{}
+    class CityApiController extends Controller implements ControllerApiResource{}
+    class DepartmentApiController extends Controller implements ControllerApiResource{}
+  }
+
+newpage
 
 
 @enduml
