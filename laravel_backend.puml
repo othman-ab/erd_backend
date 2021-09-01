@@ -1,9 +1,9 @@
 @startuml
 !define DARKBLUE # change color here E.g. DARKBLUE, LIGHTBLUE ... GREEN ... RED ...
 !include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml?fbclid=IwAR2eYqwxf9YIa7oSDWJCumJRDLLnBYEORYICuyi295mYOxN-H-SCRLoa30c
+newpage
 
  package laravel\laravel {
-
   class Model{}
   class Controller{}
   class Request{}
@@ -12,27 +12,31 @@
   class FormRequest{}
   class Factory{}
   class Seeder{}
-  class HandleAuthorization{}
   class Middleware{}
  interface ControllerResource{
      + index() : [Model]
      + show(Model) : Model
      + create() : View
-     + store(Request) : Response
+     + store(FormRequest) : Response
      + edit(Model) : View
-     + update(Model,Request) : Response
+     + update(Model,FormRequest) : Response
      + destroy(Model) : Response
   }
  interface ControllerApiResource{
       + index() : [Model]
       + show(Model) : Model
-      + create() : View
-      + store(Request) : Response
-      + edit(Model) : View
-      + update(Model,Request) : Response
+      + store(FormRequest) : Response
+      + update(Model,FormRequest) : Response
       + destroy(Model) : Response
    }
-
+ interface PolicyResource {
+     use HandlesAuthorization
+     + viewany()
+     + view()
+     + create()
+     + update()
+     + delete()
+ }
  }
 newpage
   package Model {
@@ -40,7 +44,7 @@ newpage
       + fillable
       + country() : Country
       + states() : [State]
-      + cities() : [City]
+      + city() : City
       + departments : [Department]
     }
     class Country extends Model{
@@ -54,12 +58,16 @@ newpage
     }
     class City extends Model{
       + fillable
-      + user() : User
+      + users() : [User]
     }
     class Department extends Model{
       + fillable
-      + user() : User
+      + users() : [User]
     }
+  }
+
+    newpage
+
   package Controller {
      class UserController extends Controller implements ControllerResource {}
      class CountryController extends Controller implements ControllerResource{}
@@ -77,27 +85,38 @@ newpage
     class CityApiController extends Controller implements ControllerApiResource{}
     class DepartmentApiController extends Controller implements ControllerApiResource{}
   }
-
-  package FormRequest {
-
+ newpage
+  package Request {
+      namespace User{
        class StoreUserRequest extends FormRequest {}
        class UpdateUserRequest extends FormRequest {}
-
+      }
+     namespace Country{
        class StoreCountryRequest extends FormRequest  {}
        class UpdateCountryRequest extends FormRequest  {}
-
+     }
+     namespace state{
        class StoreStateRequest extends FormRequest  {}
        class UpdateStateRequest extends FormRequest  {}
-
+     }
+     namespace City{
         class StoreCityRequest extends FormRequest  {}
         class UpdateCityRequest extends FormRequest  {}
-
+     }
+     namespace Department{
        class StoreDepartmentRequest extends FormRequest  {}
        class UpdateDepartmentRequest extends FormRequest {}
-
+     }
   }
 
 newpage
+ package Policy {
+    class UserPolicy extends Policy implements PolicyResource{}
+    class CountryPolicy extends Policy implements PolicyResource{}
+    class StatePolicy extends Policy implements PolicyResource{}
+    class CityPolicy extends Policy implements PolicyResource{}
+    class DepartmentPolicy extends Policy implements PolicyResource{}
+ }
 
 
 @enduml
